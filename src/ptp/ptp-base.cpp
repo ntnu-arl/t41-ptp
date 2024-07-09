@@ -4,6 +4,7 @@
 
 const int logging = 0;
 const int hwOffset = -200; // Hardware Offset
+const int convergedThreshold = 500; // ns for offset to be considered converged
 
 void printTime(const NanoTime t)
 {
@@ -221,7 +222,7 @@ void PTPBase::updateController()
         qindesign::network::EthernetIEEE1588.adjustFreq(nspsAdjust);
     }
     
-    if(currentOffset < 100 && currentOffset > -100){
+    if(currentOffset < convergedThreshold && currentOffset > -convergedThreshold){
     	lockcount++;
     }else{
     	lockcount=0;
