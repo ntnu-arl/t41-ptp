@@ -4,7 +4,8 @@
 
 const int logging = 0;
 const int hwOffset = -200; // Hardware Offset
-const int convergedThreshold = 500; // ns for offset to be considered converged
+const int convergedThreshold = 2500; // ns for offset to be considered converged
+const int coarseModeThreshold = 5000;
 
 void printTime(const NanoTime t)
 {
@@ -190,7 +191,7 @@ void PTPBase::updateController()
     const double t2diff = (t2 - t2last);
     const double currentDrift = t2diff / t1diff;
     
-    const bool coarseMode = currentOffset > 1000 || currentOffset < -1000;
+    const bool coarseMode = currentOffset > coarseModeThreshold || currentOffset < -coarseModeThreshold;
 
     const double currentDriftNsps = (1.0 - currentDrift) * NS_PER_S;
 
