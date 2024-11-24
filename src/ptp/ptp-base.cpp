@@ -171,6 +171,8 @@ void PTPBase::reset()
 
     nspsAccu = 0;
     driftNSPS = 0;
+
+    lockcount = 0;
 }
 
 void PTPBase::setKi(double val)
